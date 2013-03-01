@@ -1,0 +1,4 @@
+pmi Added version file.
+Based on download page.
+
+ver 6.0.11
