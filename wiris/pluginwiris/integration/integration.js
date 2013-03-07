@@ -78,7 +78,6 @@ function PMI_Wiris_CASButtonClickedHandler(e)
 
 function PMI_Wiris_Init(target_element, target_iframe)
 {
-	//debugger;
 	PMI_Wiris_TargetTextArea = target_element;
 	PMI_Wiris_TargetIFrame = target_iframe;
 
@@ -86,19 +85,9 @@ function PMI_Wiris_Init(target_element, target_iframe)
 	wrs_addIframeEvents(PMI_Wiris_TargetIFrame, PMI_Wiris_DoubleClickHandler, PMI_Wiris_MousedownHandler, PMI_Wiris_MouseupHandler);
 
 	/* Parsing input text */
-	//var textarea = document.getElementById(PMI_Wiris_TargetTextArea);
 	PMI_Wiris_TargetIFrame.contentWindow.document.body.innerHTML = wrs_initParse(PMI_Wiris_TargetTextArea.innerHTML);
 
 	/* Creating an event for parse the output text */
-//	debugger;
-//	var form = PMI_Wiris_TargetIFrame.form;
-//
-//	wrs_addEvent(form, 'submit', function (e)
-//		{
-//			// In our case the plugin is who sets the textarea content. And it takes the opportunity to apply the final parser.
-//			PMI_Wiris_TargetTextArea.value = wrs_endParse(PMI_Wiris_TargetIFrame.contentWindow.document.body.innerHTML);
-//		});
-
 	PMI_Wiris_TargetTextArea.value = wrs_endParse(PMI_Wiris_TargetIFrame.contentWindow.document.body.innerHTML);
 }
 
@@ -157,7 +146,6 @@ function PMI_Wiris_MouseupHandler() {
 
 function wrs_int_updateFormula(mathml)
 {
-	//debugger;
 	wrs_updateFormula(_wrs_int_temporalIframe, mathml);
 }
 
@@ -173,19 +161,6 @@ function wrs_int_notifyWindowClosed()
 
 function PMI_Wiris_OpenNewFormulaEditor(iframe, language)
 {
-//	if (_wrs_int_window_opened)
-//	{
-//		_wrs_int_window.focus();
-//	}
-//	else
-//	{
-//		_wrs_int_window_opened = true;
-//		_wrs_isNewElement = true;
-//		_wrs_int_temporalIframe = iframe;
-//		_wrs_int_window = wrs_openEditorWindow(language, iframe, true);
-//	}
-
-	debugger;
 	if (_wrs_int_window_opened) {
 		_wrs_int_window.focus();
 	}
@@ -198,11 +173,6 @@ function PMI_Wiris_OpenNewFormulaEditor(iframe, language)
 
 function PMI_Wiris_OpenExistingFormulaEditor(iframe, language)
 {
-//	_wrs_int_window_opened = true;
-//	_wrs_isNewElement = false;
-//	_wrs_int_temporalIframe = iframe;
-//	_wrs_int_window = wrs_openEditorWindow(language, iframe, true);
-
 	_wrs_int_window_opened = true;
 	_wrs_isNewElement = false;
 	_wrs_int_temporalIframe = iframe;
