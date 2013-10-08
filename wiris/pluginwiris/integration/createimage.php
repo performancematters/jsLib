@@ -1,58 +1,36 @@
-﻿<?php
-include 'libwiris.php';
+<?php
+
+//
+//  Copyright (c) 2011, Maths for More S.L. http://www.wiris.com
+//  This file is part of WIRIS Plugin.
+//
+//  WIRIS Plugin is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  any later version.
+//
+//  WIRIS Plugin is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with WIRIS Plugin. If not, see <http://www.gnu.org/licenses/>.
+//
+
+require_once 'bootstrap.php';
+include 'api.php';
 
 if (!empty($_POST['mml'])) {
-	$config = parse_ini_file(WRS_CONFIG_FILE);
-	
-	if (isset($_POST['bgColor'])) {
-		$config['wirisimagebgcolor'] = $_POST['bgColor'];
+	try {
+		$api = new com_wiris_plugin_PluginAPI();
+		echo $api->mathml2img($_POST['mml'], dirname($_SERVER['REQUEST_URI']), $_POST);
 	}
-	
-	if (isset($_POST['symbolColor'])) {
-		$config['wirisimagesymbolcolor'] = $_POST['symbolColor'];
-	}
-	
-	if (isset($_POST['transparency'])) {
-		$config['wiristransparency'] = $_POST['transparency'];
-	}
-	
-	if (isset($_POST['fontSize'])) {
-		$config['wirisimagefontsize'] = $_POST['fontSize'];
-	}
-	
-	if (isset($_POST['numberColor'])) {
-		$config['wirisimagenumbercolor'] = $_POST['numberColor'];
-	}
-	
-	if (isset($_POST['identColor'])) {
-		$config['wirisimageidentcolor'] = $_POST['identColor'];
-	}
-	
-	$toSave = $_POST['mml'] . "\n";
-	$toSave .= $config['wirisimagebgcolor'] . "\n";
-	$toSave .= $config['wirisimagesymbolcolor'] . "\n";
-	$toSave .= (($config['wiristransparency']) ? 'true' : 'false') . "\n";
-	$toSave .= $config['wirisimagefontsize'] . "\n";
-	$toSave .= $config['wirisimagenumbercolor'] . "\n";
-	$toSave .= $config['wirisimageidentcolor'] . "\n";
-	
-	$fileName = md5($toSave);
-	$url = dirname($_SERVER['PHP_SELF']) . '/showimage.php?formula=' . $fileName . '.png';
-	$filePath = WRS_FORMULA_DIRECTORY . '/' . $fileName . '.xml';
-	
-	if (!is_file($filePath)) {
-		if (file_put_contents($filePath, $toSave) !== false) {
-			echo (isset($_POST['returnDigest']) && $_POST['returnDigest'] != 'false') ? $fileName . ':' . $url : $url;
-		}
-		else {
-			echo 'Error: can not create the image. Check your file privileges.';
-		}
-	}
-	else {
-		echo (isset($_POST['returnDigest']) && $_POST['returnDigest'] != 'false') ? $fileName . ':' . $url : $url;
+	catch (Exception $e) {
+		echo $e->getMessage();
 	}
 }
 else {
-	echo 'Error: no mathml has been sended.';
+	echo 'Error: no mathml has been sent.';
 }
 ?>
