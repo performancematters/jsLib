@@ -359,7 +359,7 @@ function wrs_createImageSrc(mathml, wirisProperties) {
 		result = result.split('@BASE@').join(baseParts.join('/'));
 	}
 	
-	return result;
+	return result.trim();
 }
 
 /**
