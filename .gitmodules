@@ -3,4 +3,4 @@
 	url = git@github.com:mathjax/MathJax.git
 [submodule "closure"]
 	path = closure
-	url = http://code.google.com/p/closure-library/
+	url = git@github.com:google/closure-library.git
